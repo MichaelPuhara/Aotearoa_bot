@@ -47,7 +47,7 @@ st.set_page_config(
     page_icon=":robot:"
 )
 
-st.header("Chat Bot with Streamlit")
+st.header("Pātai Bot Aotearoa")
 
 history_input = []
 
