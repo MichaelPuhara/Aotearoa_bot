@@ -13,31 +13,27 @@ openai.api_key = api_key
 
 # Define the ChatOpenAI class (assuming it is defined somewhere in your code)
 class ChatOpenAI:
-    def __init__(self, model, prompt, temperature, max_tokens, top_p, frequency_penalty, presence_penalty, stop):
-        # Define the initialization logic for ChatOpenAI
-        pass
+    def __init__(self, model, messages):
+        self.model = model
+        self.messages = messages
 
 # Your openai_create function
-def openai_create(prompt):
-    chat = ChatOpenAI(
-        model="gpt-3.5-turbo-16k",
-        prompt=prompt,
-        temperature=0.9,
-        max_tokens=110,
-        top_p=1,
-        frequency_penalty=0,
-        presence_penalty=0.6,
-        stop=[" Human:", " AI:"]
+def openai_create(messages):
+    chat = ChatOpenAI(model="gpt-3.5-turbo", messages=messages)
+    response = openai.ChatCompletion.create(
+        model=chat.model,
+        messages=chat.messages
     )
-    # Perform any necessary processing using the chat instance
-    # ...
+    return response.choices[0].message['content']
 
 # Your chatgpt_clone function
 def chatgpt_clone(input, history):
-    # Assuming the logic for openai_create is correct, use it here
-    output = openai_create(input)
-    history.append((input, output))
-    return history, history
+    user_message = {'role': 'user', 'content': input}
+    history.append(user_message)
+    output = openai_create(messages=history)
+    bot_message = {'role': 'assistant', 'content': output}
+    history.append(bot_message)
+    return history, output
 
 # Streamlit App
 st.set_page_config(
