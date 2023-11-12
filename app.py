@@ -28,7 +28,7 @@ def openai_create(prompt):
     stop=[" Human:", " AI:"]
     )
 
-    return response.choices[0].text
+    #return response.choices[0].text
 
 
 def chatgpt_clone(input, history):
