@@ -17,7 +17,7 @@ api_key = os.environ["OPENAI_API_KEY"]
 
 def openai_create(prompt):
 
-    response = openai.Completion.create(
+   chat = ChatOpenAI(
     model="gpt-3.5-turbo-16k",
     prompt=prompt,
     temperature=0.9,
