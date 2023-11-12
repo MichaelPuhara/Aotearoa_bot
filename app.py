@@ -13,15 +13,15 @@ openai.api_key = api_key
 
 # Define the ChatOpenAI class (assuming it is defined somewhere in your code)
 class ChatOpenAI:
-    def __init__(self, model, messages):
+    def __init__(self, model="gpt-3.5-turbo", messages=None):
         self.model = model
-        self.messages = messages
+        self.messages = messages if messages else []
 
 # Your openai_create function
 def openai_create(messages):
-    chat = ChatOpenAI(model="gpt-3.5-turbo", messages=messages)
-    response = openai.ChatCompletion.create(
-        model=chat.model,
+    chat = ChatOpenAI(messages=messages)
+    response = openai.Completion.create(
+        engine=chat.model,
         messages=chat.messages
     )
     return response.choices[0].message['content']
